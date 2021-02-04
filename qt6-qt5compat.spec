@@ -38,6 +38,9 @@ BuildRequires:	qt%{major}-qtdeclarative
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(xkbcommon)
 BuildRequires:	pkgconfig(vulkan)
+BuildRequires:	pkgconfig(icu-i18n)
+BuildRequires:	pkgconfig(icu-uc)
+BuildRequires:	pkgconfig(openssl)
 BuildRequires:	cmake(LLVM)
 BuildRequires:	cmake(Clang)
 # Not really required, but referenced by LLVMExports.cmake
