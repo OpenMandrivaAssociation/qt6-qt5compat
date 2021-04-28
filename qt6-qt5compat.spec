@@ -1,11 +1,11 @@
-#define beta rc2
+%define beta rc
 #define snapshot 20200627
 %define major 6
 
 %define _qtdir %{_libdir}/qt%{major}
 
 Name:		qt6-qt5compat
-Version:	6.0.1
+Version:	6.1.0
 Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
@@ -93,3 +93,17 @@ done
 %{_qtdir}/mkspecs/modules/qt_lib_core5compat.pri
 %{_qtdir}/mkspecs/modules/qt_lib_core5compat_private.pri
 %{_qtdir}/modules/Core5Compat.json
+%{_libdir}/cmake/Qt6Qml
+%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginAdditionalTargetInfo.cmake
+%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginConfig.cmake
+%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginConfigVersion.cmake
+%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginDependencies.cmake
+%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginTargets-relwithdebinfo.cmake
+%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginTargets.cmake
+%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateAdditionalTargetInfo.cmake
+%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateConfig.cmake
+%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateConfigVersion.cmake
+%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateDependencies.cmake
+%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateTargets-relwithdebinfo.cmake
+%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateTargets.cmake
+%{_qtdir}/qml/Qt5Compat
