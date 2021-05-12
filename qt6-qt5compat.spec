@@ -4,6 +4,9 @@
 
 %define _qtdir %{_libdir}/qt%{major}
 
+%define libname %mklibname Qt6Core5Compat %{major}
+%define devname %mklibname -d Qt6Core5Compat
+
 Name:		qt6-qt5compat
 Version:	6.1.0
 Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
@@ -51,6 +54,18 @@ License:	LGPLv3/GPLv3/GPLv2
 %description
 Qt 5.x compatibility library for Qt %{major}
 
+%package -n %{libname}
+Summary:	Qt 5.x compatibility library for Qt %{major}
+
+%description -n %{libname}
+Qt 5.x compatibility library for Qt %{major}
+
+%package -n %{devname}
+Summary:	Development files for the Qt 5.x compatibility library for Qt %{major}
+
+%description -n %{devname}
+Development files for the Qt 5.x compatibility library for Qt %{major}
+
 %prep
 %autosetup -p1 -n qt5compat%{!?snapshot:-everywhere-src-%{version}%{?beta:-%{beta}}}
 # FIXME why are OpenGL lib paths autodetected incorrectly, preferring
@@ -80,16 +95,18 @@ for i in %{buildroot}%{_qtdir}/lib/cmake/*; do
 	ln -s ../qt%{major}/lib/cmake/$(basename ${i}) %{buildroot}%{_libdir}/cmake/
 done
 
-%files
+%files -n %{libname}
+%{_libdir}/libQt6Core5Compat.so.*
+%{_qtdir}/lib/libQt6Core5Compat.so.*
+
+%files -n %{devname}
 %{_libdir}/cmake/Qt6Core5Compat
 %{_libdir}/libQt6Core5Compat.so
-%{_libdir}/libQt6Core5Compat.so.*
 %{_qtdir}/include/QtCore5Compat
 %{_qtdir}/lib/cmake/Qt6BuildInternals/StandaloneTests/Qt5CompatTestsConfig.cmake
 %{_qtdir}/lib/cmake/Qt6Core5Compat
 %{_qtdir}/lib/libQt6Core5Compat.prl
 %{_qtdir}/lib/libQt6Core5Compat.so
-%{_qtdir}/lib/libQt6Core5Compat.so.*
 %{_qtdir}/mkspecs/modules/qt_lib_core5compat.pri
 %{_qtdir}/mkspecs/modules/qt_lib_core5compat_private.pri
 %{_qtdir}/modules/Core5Compat.json
