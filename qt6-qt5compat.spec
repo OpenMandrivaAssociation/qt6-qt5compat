@@ -9,7 +9,7 @@
 
 Name:		qt6-qt5compat
 Version:	6.1.0
-Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
+Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}2
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qt5compat-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
@@ -90,10 +90,7 @@ mkdir -p %{buildroot}%{_bindir} %{buildroot}%{_libdir}/cmake
 for i in %{buildroot}%{_qtdir}/lib/*.so*; do
 	ln -s qt%{major}/lib/$(basename ${i}) %{buildroot}%{_libdir}/
 done
-for i in %{buildroot}%{_qtdir}/lib/cmake/*; do
-	[ "$(basename ${i})" = "Qt6BuildInternals" ] && continue
-	ln -s ../qt%{major}/lib/cmake/$(basename ${i}) %{buildroot}%{_libdir}/cmake/
-done
+mv %{buildroot}%{_qtdir}/lib/cmake %{buildroot}%{_libdir}/
 
 %files -n %{libname}
 %{_libdir}/libQt6Core5Compat.so.*
@@ -101,26 +98,24 @@ done
 
 %files -n %{devname}
 %{_libdir}/cmake/Qt6Core5Compat
+%{_libdir}/cmake/Qt6BuildInternals/StandaloneTests/*.cmake
+%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginAdditionalTargetInfo.cmake
+%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginConfig.cmake
+%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginConfigVersion.cmake
+%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginDependencies.cmake
+%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginTargets-relwithdebinfo.cmake
+%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginTargets.cmake
+%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateAdditionalTargetInfo.cmake
+%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateConfig.cmake
+%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateConfigVersion.cmake
+%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateDependencies.cmake
+%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateTargets-relwithdebinfo.cmake
+%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateTargets.cmake
 %{_libdir}/libQt6Core5Compat.so
 %{_qtdir}/include/QtCore5Compat
-%{_qtdir}/lib/cmake/Qt6BuildInternals/StandaloneTests/Qt5CompatTestsConfig.cmake
-%{_qtdir}/lib/cmake/Qt6Core5Compat
 %{_qtdir}/lib/libQt6Core5Compat.prl
 %{_qtdir}/lib/libQt6Core5Compat.so
 %{_qtdir}/mkspecs/modules/qt_lib_core5compat.pri
 %{_qtdir}/mkspecs/modules/qt_lib_core5compat_private.pri
 %{_qtdir}/modules/Core5Compat.json
-%{_libdir}/cmake/Qt6Qml
-%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginAdditionalTargetInfo.cmake
-%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginConfig.cmake
-%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginConfigVersion.cmake
-%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginDependencies.cmake
-%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginTargets-relwithdebinfo.cmake
-%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginTargets.cmake
-%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateAdditionalTargetInfo.cmake
-%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateConfig.cmake
-%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateConfigVersion.cmake
-%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateDependencies.cmake
-%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateTargets-relwithdebinfo.cmake
-%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateTargets.cmake
 %{_qtdir}/qml/Qt5Compat
