@@ -9,7 +9,7 @@
 
 Name:		qt6-qt5compat
 Version:	6.1.0
-Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}2
+Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}3
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qt5compat-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
@@ -62,6 +62,7 @@ Qt 5.x compatibility library for Qt %{major}
 
 %package -n %{devname}
 Summary:	Development files for the Qt 5.x compatibility library for Qt %{major}
+Requires:	%{libname} = %{EVRD}
 
 %description -n %{devname}
 Development files for the Qt 5.x compatibility library for Qt %{major}
