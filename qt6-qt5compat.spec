@@ -8,8 +8,8 @@
 %define devname %mklibname -d Qt6Core5Compat
 
 Name:		qt6-qt5compat
-Version:	6.1.0
-Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}3
+Version:	6.2.2
+Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qt5compat-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
@@ -26,8 +26,6 @@ BuildRequires:	%{_lib}Qt%{major}Network-devel
 BuildRequires:	%{_lib}Qt%{major}Qml-devel
 BuildRequires:	%{_lib}Qt%{major}QmlDevTools-devel
 BuildRequires:	%{_lib}Qt%{major}QmlModels-devel
-BuildRequires:	%{_lib}Qt%{major}QmlQuick-devel
-BuildRequires:	%{_lib}Qt%{major}QmlQuickWidgets-devel
 BuildRequires:	%{_lib}Qt%{major}Xml-devel
 BuildRequires:	%{_lib}Qt%{major}Widgets-devel
 BuildRequires:	%{_lib}Qt%{major}QmlDevTools-devel
@@ -100,16 +98,17 @@ mv %{buildroot}%{_qtdir}/lib/cmake %{buildroot}%{_libdir}/
 %files -n %{devname}
 %{_libdir}/cmake/Qt6Core5Compat
 %{_libdir}/cmake/Qt6BuildInternals/StandaloneTests/*.cmake
+%{_libdir}/cmake/Qt6/FindWrapIconv.cmake
 %{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginAdditionalTargetInfo.cmake
 %{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginConfig.cmake
 %{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginConfigVersion.cmake
-%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginDependencies.cmake
+%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginConfigVersionImpl.cmake
 %{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginTargets-relwithdebinfo.cmake
 %{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginTargets.cmake
 %{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateAdditionalTargetInfo.cmake
 %{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateConfig.cmake
 %{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateConfigVersion.cmake
-%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateDependencies.cmake
+%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateConfigVersionImpl.cmake
 %{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateTargets-relwithdebinfo.cmake
 %{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateTargets.cmake
 %{_libdir}/libQt6Core5Compat.so
@@ -120,3 +119,4 @@ mv %{buildroot}%{_qtdir}/lib/cmake %{buildroot}%{_libdir}/
 %{_qtdir}/mkspecs/modules/qt_lib_core5compat_private.pri
 %{_qtdir}/modules/Core5Compat.json
 %{_qtdir}/qml/Qt5Compat
+%{_qtdir}/lib/metatypes/qt6core5compat_relwithdebinfo_metatypes.json
