@@ -8,7 +8,7 @@
 %define devname %mklibname -d Qt6Core5Compat
 
 Name:		qt6-qt5compat
-Version:	6.2.2
+Version:	6.6.0
 Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
@@ -24,12 +24,10 @@ BuildRequires:	%{_lib}Qt%{major}Core-devel
 BuildRequires:	%{_lib}Qt%{major}Gui-devel
 BuildRequires:	%{_lib}Qt%{major}Network-devel
 BuildRequires:	%{_lib}Qt%{major}Qml-devel
-BuildRequires:	%{_lib}Qt%{major}QmlDevTools-devel
 BuildRequires:	%{_lib}Qt%{major}QmlModels-devel
 BuildRequires:	%{_lib}Qt%{major}Quick-devel
 BuildRequires:	%{_lib}Qt%{major}Xml-devel
 BuildRequires:	%{_lib}Qt%{major}Widgets-devel
-BuildRequires:	%{_lib}Qt%{major}QmlDevTools-devel
 BuildRequires:	%{_lib}Qt%{major}Sql-devel
 BuildRequires:	%{_lib}Qt%{major}PrintSupport-devel
 BuildRequires:	%{_lib}Qt%{major}OpenGL-devel
