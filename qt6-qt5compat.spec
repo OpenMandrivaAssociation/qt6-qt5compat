@@ -1,4 +1,4 @@
-#define beta rc
+%define beta beta2
 #define snapshot 20200627
 %define major 6
 
@@ -8,7 +8,7 @@
 %define devname %mklibname -d Qt6Core5Compat
 
 Name:		qt6-qt5compat
-Version:	6.3.0
+Version:	6.4.0
 Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
@@ -51,23 +51,18 @@ License:	LGPLv3/GPLv3/GPLv2
 %description
 Qt 5.x compatibility library for Qt %{major}
 
-%package -n %{libname}
-Summary:	Qt 5.x compatibility library for Qt %{major}
+%global extra_files_Core5Compat \
+%{_qtdir}/qml/Qt5Compat
 
-%description -n %{libname}
-Qt 5.x compatibility library for Qt %{major}
+%global extra_devel_files_Core5Compat \
+%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/*graphicaleffects* \
+%{_qtdir}/lib/cmake/Qt6/FindWrapIconv.cmake \
+%{_qtdir}/lib/cmake/Qt6BuildInternals/StandaloneTests/Qt5CompatTestsConfig.cmake
 
-%package -n %{devname}
-Summary:	Development files for the Qt 5.x compatibility library for Qt %{major}
-Requires:	%{libname} = %{EVRD}
-
-%description -n %{devname}
-Development files for the Qt 5.x compatibility library for Qt %{major}
+%qt6libs Core5Compat
 
 %prep
 %autosetup -p1 -n qt5compat%{!?snapshot:-everywhere-src-%{version}%{?beta:-%{beta}}}
-# FIXME why are OpenGL lib paths autodetected incorrectly, preferring
-# /usr/lib over /usr/lib64 even on 64-bit boxes?
 %cmake -G Ninja \
 	-DCMAKE_INSTALL_PREFIX=%{_qtdir} \
 	-DQT_BUILD_EXAMPLES:BOOL=ON \
@@ -75,48 +70,9 @@ Development files for the Qt 5.x compatibility library for Qt %{major}
 	-DQT_MKSPECS_DIR:FILEPATH=%{_qtdir}/mkspecs
 
 %build
-export LD_LIBRARY_PATH="$(pwd)/build/lib:${LD_LIBRARY_PATH}"
 %ninja_build -C build
 
 %install
 %ninja_install -C build
-# Static helper lib without headers -- useless
-rm -f %{buildroot}%{_libdir}/qt6/%{_lib}/libpnp_basictools.a
-# Put stuff where tools will find it
-# We can't do the same for %{_includedir} right now because that would
-# clash with qt5 (both would want to have /usr/include/QtCore and friends)
-mkdir -p %{buildroot}%{_bindir} %{buildroot}%{_libdir}/cmake
-for i in %{buildroot}%{_qtdir}/lib/*.so*; do
-	ln -s qt%{major}/lib/$(basename ${i}) %{buildroot}%{_libdir}/
-done
-mv %{buildroot}%{_qtdir}/lib/cmake %{buildroot}%{_libdir}/
 
-%files -n %{libname}
-%{_libdir}/libQt6Core5Compat.so.*
-%{_qtdir}/lib/libQt6Core5Compat.so.*
-
-%files -n %{devname}
-%{_libdir}/cmake/Qt6Core5Compat
-%{_libdir}/cmake/Qt6BuildInternals/StandaloneTests/*.cmake
-%{_libdir}/cmake/Qt6/FindWrapIconv.cmake
-%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginAdditionalTargetInfo.cmake
-%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginConfig.cmake
-%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginConfigVersion.cmake
-%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginConfigVersionImpl.cmake
-%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginTargets-relwithdebinfo.cmake
-%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginTargets.cmake
-%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateAdditionalTargetInfo.cmake
-%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateConfig.cmake
-%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateConfigVersion.cmake
-%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateConfigVersionImpl.cmake
-%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateTargets-relwithdebinfo.cmake
-%{_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectsprivateTargets.cmake
-%{_libdir}/libQt6Core5Compat.so
-%{_qtdir}/include/QtCore5Compat
-%{_qtdir}/lib/libQt6Core5Compat.prl
-%{_qtdir}/lib/libQt6Core5Compat.so
-%{_qtdir}/mkspecs/modules/qt_lib_core5compat.pri
-%{_qtdir}/mkspecs/modules/qt_lib_core5compat_private.pri
-%{_qtdir}/modules/Core5Compat.json
-%{_qtdir}/qml/Qt5Compat
-%{_qtdir}/lib/metatypes/qt6core5compat_relwithdebinfo_metatypes.json
+%files
