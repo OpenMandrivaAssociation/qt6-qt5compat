@@ -8,7 +8,7 @@
 %define devname %mklibname -d Qt6Core5Compat
 
 Name:		qt6-qt5compat
-Version:	6.4.1
+Version:	6.4.2
 Release:	%{?beta:0.%{beta}.1}%{?snapshot:1.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
