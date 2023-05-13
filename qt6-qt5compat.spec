@@ -9,7 +9,7 @@
 
 Name:		qt6-qt5compat
 Version:	6.5.0
-Release:	%{?beta:0.%{beta}.1}%{?snapshot:1.%{snapshot}.}1
+Release:	%{?beta:0.%{beta}.1}%{?snapshot:0.%{snapshot}.}2
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qt5compat-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
@@ -44,9 +44,6 @@ BuildRequires:	pkgconfig(icu-uc)
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	cmake(LLVM)
 BuildRequires:	cmake(Clang)
-# Not really required, but referenced by LLVMExports.cmake
-# (and then required because of the integrity check)
-BuildRequires:	%{_lib}gpuruntime
 License:	LGPLv3/GPLv3/GPLv2
 
 %description
@@ -75,5 +72,4 @@ Qt 5.x compatibility library for Qt %{major}
 
 %install
 %ninja_install -C build
-
-%files
+%qt6_postinstall
