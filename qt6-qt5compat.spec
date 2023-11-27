@@ -8,7 +8,7 @@
 %define devname %mklibname -d Qt6Core5Compat
 
 Name:		qt6-qt5compat
-Version:	6.6.0
+Version:	6.6.1
 Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
@@ -58,6 +58,16 @@ Qt 5.x compatibility library for Qt %{major}
 %{_qtdir}/lib/cmake/Qt6BuildInternals/StandaloneTests/Qt5CompatTestsConfig.cmake
 
 %qt6libs Core5Compat
+
+%package examples
+Summary: Examples for the Qt %{qtmajor} framework
+Group: Documentation
+
+%description examples
+Documentation for the Qt %{qtmajor} framework
+
+%files examples
+%{_qtdir}/examples/core5
 
 %prep
 %autosetup -p1 -n qt5compat%{!?snapshot:-everywhere-src-%{version}%{?beta:-%{beta}}}
