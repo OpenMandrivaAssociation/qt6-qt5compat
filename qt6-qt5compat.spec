@@ -8,7 +8,7 @@
 %define devname %mklibname -d Qt6Core5Compat
 
 Name:		qt6-qt5compat
-Version:	6.8.0
+Version:	6.8.1
 Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
@@ -55,7 +55,8 @@ Qt 5.x compatibility library for Qt %{major}
 %global extra_devel_files_Core5Compat \
 %{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/*graphicaleffects* \
 %{_qtdir}/lib/cmake/Qt6/FindWrapIconv.cmake \
-%{_qtdir}/lib/cmake/Qt6BuildInternals/StandaloneTests/Qt5CompatTestsConfig.cmake
+%{_qtdir}/lib/cmake/Qt6BuildInternals/StandaloneTests/Qt5CompatTestsConfig.cmake \
+%{_qtdir}/sbom/*
 
 %qt6libs Core5Compat
 
