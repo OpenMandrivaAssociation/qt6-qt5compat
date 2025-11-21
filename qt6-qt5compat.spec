@@ -24,6 +24,7 @@ BuildRequires:	%{_lib}Qt%{major}Core-devel
 BuildRequires:	%{_lib}Qt%{major}Gui-devel
 BuildRequires:	%{_lib}Qt%{major}Network-devel
 BuildRequires:	%{_lib}Qt%{major}Qml-devel
+BuildRequires:	%{_lib}Qt%{major}QmlMeta-devel
 BuildRequires:	%{_lib}Qt%{major}QmlModels-devel
 BuildRequires:	%{_lib}Qt%{major}Quick-devel
 BuildRequires:	%{_lib}Qt%{major}Xml-devel
