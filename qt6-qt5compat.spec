@@ -9,7 +9,7 @@
 
 Name:		qt6-qt5compat
 Version:	6.12.0
-Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}2
+Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}3
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qt5compat-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
@@ -46,6 +46,16 @@ BuildRequires:	pkgconfig(openssl)
 BuildRequires:	cmake(LLVM)
 BuildRequires:	cmake(Clang)
 License:	LGPLv3/GPLv3/GPLv2
+
+%patchlist
+# CVE-2026-100140: QXmlSimpleReader counted buffer sizes in int.
+# updateValue() overflowed, resized to an empty string, then memcpy'd
+# past it. Counters move to qsizetype, line/column past INT_MAX are
+# reported as -1, and an element with more than INT_MAX attributes is
+# rejected. CVE-2026-101201 is already in the 6.12.0 tarball.
+# 6.12: 2a41143bbae0, 78a07281b53f, cdcff89d7b47, fabca46cfce4,
+# QTBUG-149566
+qt5compat-6.12.0-cve-2026-100140.patch
 
 %description
 Qt 5.x compatibility library for Qt %{major}
