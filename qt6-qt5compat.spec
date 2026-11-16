@@ -9,7 +9,7 @@
 
 Name:		qt6-qt5compat
 Version:	6.12.0
-Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}3
+Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}4
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qt5compat-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
@@ -56,6 +56,25 @@ License:	LGPLv3/GPLv3/GPLv2
 # 6.12: 2a41143bbae0, 78a07281b53f, cdcff89d7b47, fabca46cfce4,
 # QTBUG-149566
 qt5compat-6.12.0-cve-2026-100140.patch
+# CVE-2026-105925 / QTBUG-149213: the 4096-character entity expansion
+# limit was not enforced for forward references or parameter entities,
+# so a small document could exhaust memory (Billion Laughs). Count the
+# size while expanding, apply the same limit to parameter entities, and
+# expose it as the property
+# http://qt-project.org/xml/properties/entity-expansion-limit.
+# A document that used to parse can now be reported as not well-formed;
+# raise the limit with setProperty() if that is required.
+# Refreshed onto 6.12.0 plus the CVE-2026-100140 backport. The
+# qsizetype-port test from the 6.12 branch is not in this tarball.
+# 6.12: 43f9b65aa5f6, 289fdf638d6d, 1732aa537e80, e995c82a760d
+# https://codereview.qt-project.org/c/qt/qt5compat/+/781838
+# https://codereview.qt-project.org/c/qt/qt5compat/+/781839
+# https://codereview.qt-project.org/c/qt/qt5compat/+/781840
+# https://codereview.qt-project.org/c/qt/qt5compat/+/781841
+qt5compat-6.12.0-cve-2026-105925-tests.patch
+qt5compat-6.12.0-cve-2026-105925-expansion-time.patch
+qt5compat-6.12.0-cve-2026-105925-parameter-entities.patch
+qt5compat-6.12.0-cve-2026-105925-property.patch
 
 %description
 Qt 5.x compatibility library for Qt %{major}
